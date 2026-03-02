@@ -1,0 +1,21 @@
+/* Estilos para o título */
+h1 {
+  font-family: 'Arial', sans-serif;
+  color: #ff6347; /* Tom de vermelho */
+  text-align: center;
+  font-size: 50px;
+  text-transform: uppercase; /* Faz as letras ficarem maiúsculas */
+  letter-spacing: 2px; /* Aumenta o espaçamento entre as letras */
+  margin-top: 100px;
+}
+
+/* Estilos para o corpo da página */
+body {
+  background-color: #f0f8ff; /* Fundo azul claro */
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
