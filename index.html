@@ -3,106 +3,118 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mundo 3.0</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<title>Minimal Chat</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
-/* RESET GLOBAL */
-* { margin:0; padding:0; box-sizing:border-box; }
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }
 
-:root{
-  --primary:#00c6ff;
-  --secondary:#0072ff;
-  --glass:rgba(255,255,255,0.08);
-  --text:#ffffff;
-}
-
-/* FUNDO ANIMADO */
-body{
-  font-family:'Poppins',sans-serif;
-  display:flex; justify-content:center; align-items:center;
+/* BODY */
+body {
   height:100vh;
-  background: linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1c92d2);
-  background-size:400% 400%;
-  animation:gradientMove 15s ease infinite;
-  overflow:hidden;
-  color:var(--text);
-}
-@keyframes gradientMove{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#f0f2f5;
+  color:#111;
 }
 
 /* CONTAINER */
-.container{
-  width:1000px;
-  height:650px;
+.container {
+  width:400px;
+  height:600px;
   display:flex;
-  border-radius:30px;
-  backdrop-filter:blur(25px);
-  background:var(--glass);
-  box-shadow:0 0 100px rgba(0,255,255,0.3);
+  flex-direction:column;
+  border-radius:20px;
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
   overflow:hidden;
 }
 
-/* PLANETA 3D SIMULADO */
-.planet-area{flex:1; display:flex; justify-content:center; align-items:center; perspective:800px;}
-.planet{
-  width:280px; height:280px; border-radius:50%;
-  background:radial-gradient(circle at 30% 30%,#00c6ff,#0072ff,#001f3f);
-  box-shadow:0 0 100px var(--primary);
-  animation:rotatePlanet 25s linear infinite, floatPlanet 6s ease-in-out infinite;
-  transform-style:preserve-3d;
-}
-@keyframes rotatePlanet{from{transform:rotateY(0deg) rotateX(0deg);} to{transform:rotateY(360deg) rotateX(360deg);}}
-@keyframes floatPlanet{0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
-
-/* CHAT */
-.chat-area{flex:1; display:flex; flex-direction:column; background:rgba(0,0,0,0.4);}
-.header{padding:25px;text-align:center;font-size:24px;font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:3px;border-bottom:1px solid rgba(255,255,255,0.1); text-transform:uppercase;}
-.chat-box{flex:1; padding:25px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;}
-.chat-box::-webkit-scrollbar{width:6px;}
-.chat-box::-webkit-scrollbar-thumb{background:var(--primary); border-radius:10px;}
-.message{padding:14px 20px; border-radius:25px; max-width:75%; font-size:14px; animation:fadeIn 0.3s ease; backdrop-filter:blur(10px);}
-.user{align-self:flex-end; background:linear-gradient(45deg,var(--primary),var(--secondary));}
-.world{align-self:flex-start; background:rgba(255,255,255,0.15);}
-@keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
-
-/* INPUT */
-.input-area{display:flex; padding:20px; border-top:1px solid rgba(255,255,255,0.1);}
-input{flex:1; padding:14px; border-radius:30px; border:none; outline:none; font-size:14px; transition:0.3s;}
-input:focus{box-shadow:0 0 15px var(--primary);}
-button{margin-left:12px; padding:14px 25px; border:none; border-radius:30px; background:linear-gradient(45deg,var(--primary),var(--secondary)); color:white; font-weight:bold; cursor:pointer; transition:0.3s ease;}
-button:hover{transform:scale(1.1); box-shadow:0 0 20px var(--primary);}
-
-/* RESPONSIVO */
-@media(max-width:1000px){
-  .container{flex-direction:column; width:95%; height:95%;}
-  .planet{width:180px;height:180px;margin:20px auto;}
+/* HEADER */
+.header {
+  padding:20px;
+  font-weight:700;
+  font-size:18px;
+  text-align:center;
+  border-bottom:1px solid #e0e0e0;
 }
 
-/* DARK MODE AUTOMÁTICO */
-@media (prefers-color-scheme: light){
-  body{background:linear-gradient(-45deg,#89f7fe,#66a6ff); color:#111;}
-  .chat-area{background:rgba(255,255,255,0.4);}
-  .world{background:rgba(0,0,0,0.1); color:#111;}
+/* CHAT BOX */
+.chat-box {
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  background:#fff;
 }
+
+/* SCROLL */
+.chat-box::-webkit-scrollbar { width:6px; }
+.chat-box::-webkit-scrollbar-thumb { background:#ccc; border-radius:10px; }
+
+/* MENSAGENS */
+.message {
+  padding:12px 18px;
+  border-radius:15px;
+  max-width:75%;
+  font-size:14px;
+  animation:fadeIn 0.2s ease;
+}
+
+.user { align-self:flex-end; background:#0072ff; color:#fff; }
+.world { align-self:flex-start; background:#e5e5ea; color:#111; }
+
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(5px);}
+  to {opacity:1; transform:translateY(0);}
+}
+
+/* INPUT AREA */
+.input-area {
+  display:flex;
+  border-top:1px solid #e0e0e0;
+  padding:15px;
+  background:#fafafa;
+}
+
+input {
+  flex:1;
+  padding:12px 15px;
+  border-radius:15px;
+  border:1px solid #ccc;
+  outline:none;
+  font-size:14px;
+  transition:0.2s;
+}
+
+input:focus { border-color:#0072ff; box-shadow:0 0 5px rgba(0,114,255,0.3); }
+
+button {
+  margin-left:10px;
+  padding:12px 20px;
+  border:none;
+  border-radius:15px;
+  background:#0072ff;
+  color:#fff;
+  cursor:pointer;
+  font-weight:500;
+  transition:0.2s;
+}
+
+button:hover { background:#005ec2; }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <div class="planet-area">
-    <div class="planet"></div>
-  </div>
-
-  <div class="chat-area">
-    <div class="header">🌍 MUNDO 3.0</div>
-    <div class="chat-box" id="chat"></div>
-    <div class="input-area">
-      <input type="text" id="input" placeholder="Fale com o mundo...">
-      <button onclick="send()">Enviar</button>
-    </div>
+  <div class="header">Minimal Chat</div>
+  <div class="chat-box" id="chat"></div>
+  <div class="input-area">
+    <input type="text" id="input" placeholder="Digite sua mensagem...">
+    <button onclick="send()">Enviar</button>
   </div>
 </div>
 
@@ -110,19 +122,27 @@ button:hover{transform:scale(1.1); box-shadow:0 0 20px var(--primary);}
 const chat = document.getElementById("chat");
 const input = document.getElementById("input");
 
-let memoria = JSON.parse(localStorage.getItem("memoriaMundo3"))||[];
+let memoria = JSON.parse(localStorage.getItem("memoriaMinimal")) || [];
 
-function salvarMemoria(){ localStorage.setItem("memoriaMundo3",JSON.stringify(memoria)); }
-function addMessage(text,type){ const msg=document.createElement("div"); msg.classList.add("message",type); msg.textContent=text; chat.appendChild(msg); chat.scrollTop=chat.scrollHeight; }
+function salvarMemoria() {
+  localStorage.setItem("memoriaMinimal", JSON.stringify(memoria));
+}
 
-function ai(texto){
-  texto=texto.toLowerCase();
-  if(texto.includes("oi")) return "🌎 Mundo: Olá humano!";
-  if(texto.includes("triste")) return "🌏 Mundo: Tristeza passa, cuide-se.";
-  if(texto.includes("feliz")) return "🌍 Mundo: Que bom que está feliz!";
-  if(texto.includes("amor")) return "🌎 Mundo: O amor mantém tudo girando!";
-  if(texto.includes("quem é você")) return "🌏 Mundo: Eu sou o planeta Terra.";
-  return "🌍 Mundo: Interessante...";
+function addMessage(text,type){
+  const msg = document.createElement("div");
+  msg.classList.add("message",type);
+  msg.textContent=text;
+  chat.appendChild(msg);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+function ai(text){
+  text=text.toLowerCase();
+  if(text.includes("oi")) return "Olá! 👋";
+  if(text.includes("triste")) return "Tudo vai ficar bem 😌";
+  if(text.includes("feliz")) return "Que bom! 😊";
+  if(text.includes("amor")) return "O amor está no ar ❤️";
+  return "Hmm, interessante...";
 }
 
 function send(){
@@ -132,16 +152,22 @@ function send(){
   memoria.push({user:texto});
   input.value="";
   setTimeout(()=>{
-    const resposta=ai(texto);
+    const resposta = ai(texto);
     addMessage(resposta,"world");
     memoria.push({world:resposta});
     salvarMemoria();
-  },600);
+  },400);
 }
-input.addEventListener("keypress",e=>{if(e.key==="Enter") send();});
+
+input.addEventListener("keypress",e=>{
+  if(e.key==="Enter") send();
+});
 
 // carregar histórico
-memoria.forEach(item=>{ if(item.user)addMessage(item.user,"user"); if(item.world)addMessage(item.world,"world"); });
+memoria.forEach(item=>{
+  if(item.user)addMessage(item.user,"user");
+  if(item.world)addMessage(item.world,"world");
+});
 </script>
 
 </body>
