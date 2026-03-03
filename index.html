@@ -3,118 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conversando com o Mundo</title>
+<title>Mundo 2.0</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
-    height: 100vh;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c92d2);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-}
-
-@keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    height:100vh;
+    font-family:'Poppins',sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle at center, #0f2027, #000);
+    overflow:hidden;
+    color:white;
 }
 
 .container {
-    width: 450px;
-    height: 650px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(15px);
-    border-radius: 25px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    width:900px;
+    height:600px;
+    display:flex;
+    border-radius:25px;
+    overflow:hidden;
+    backdrop-filter:blur(20px);
+    background:rgba(255,255,255,0.05);
+    box-shadow:0 0 50px rgba(0,255,255,0.2);
+}
+
+/* PLANETA */
+
+.planet-area {
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+
+.planet {
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #00c6ff, #0072ff, #001f3f);
+    box-shadow:0 0 60px #00c6ff;
+    animation:rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform:rotate(0deg); }
+    to { transform:rotate(360deg); }
+}
+
+/* CHAT */
+
+.chat-area {
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    background:rgba(0,0,0,0.4);
 }
 
 .header {
-    padding: 20px;
-    text-align: center;
-    font-size: 22px;
-    font-weight: 600;
-    background: rgba(255,255,255,0.15);
-    color: white;
+    padding:20px;
+    text-align:center;
+    font-family:'Orbitron',sans-serif;
+    font-size:20px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
 .chat-box {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    flex:1;
+    padding:20px;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
 .message {
-    padding: 12px 18px;
-    border-radius: 20px;
-    max-width: 75%;
-    font-size: 14px;
-    animation: fadeIn 0.3s ease;
+    padding:12px 18px;
+    border-radius:20px;
+    max-width:75%;
+    font-size:14px;
+    animation:fadeIn 0.3s ease;
 }
 
 .user {
-    align-self: flex-end;
-    background: linear-gradient(to right, #0072ff, #00c6ff);
-    color: white;
+    align-self:flex-end;
+    background:linear-gradient(to right,#00c6ff,#0072ff);
 }
 
 .world {
-    align-self: flex-start;
-    background: rgba(255,255,255,0.2);
-    color: white;
+    align-self:flex-start;
+    background:rgba(255,255,255,0.15);
 }
 
 .input-area {
-    display: flex;
-    padding: 15px;
-    background: rgba(255,255,255,0.15);
+    display:flex;
+    padding:15px;
+    border-top:1px solid rgba(255,255,255,0.1);
 }
 
 input {
-    flex: 1;
-    padding: 12px;
-    border-radius: 25px;
-    border: none;
-    outline: none;
-    font-size: 14px;
+    flex:1;
+    padding:12px;
+    border-radius:20px;
+    border:none;
+    outline:none;
 }
 
 button {
-    margin-left: 10px;
-    padding: 12px 18px;
-    border-radius: 25px;
-    border: none;
-    background: linear-gradient(to right, #00c6ff, #0072ff);
-    color: white;
-    cursor: pointer;
-    font-weight: 500;
-    transition: 0.3s;
+    margin-left:10px;
+    padding:12px 18px;
+    border:none;
+    border-radius:20px;
+    background:#00c6ff;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-button:hover {
-    transform: scale(1.05);
-}
+button:hover { transform:scale(1.05); }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {opacity:0; transform:translateY(5px);}
+    to {opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
@@ -122,63 +136,79 @@ button:hover {
 <body>
 
 <div class="container">
-    <div class="header">
-        🌍 Conversando com o Mundo
+
+    <div class="planet-area">
+        <div class="planet"></div>
     </div>
 
-    <div class="chat-box" id="chat"></div>
+    <div class="chat-area">
+        <div class="header">🌍 MUNDO 2.0 - IA PLANETÁRIA</div>
 
-    <div class="input-area">
-        <input type="text" id="userInput" placeholder="Digite sua mensagem...">
-        <button onclick="sendMessage()">Enviar</button>
+        <div class="chat-box" id="chat"></div>
+
+        <div class="input-area">
+            <input type="text" id="input" placeholder="Fale com o mundo...">
+            <button onclick="send()">Enviar</button>
+        </div>
     </div>
+
 </div>
 
 <script>
 const chat = document.getElementById("chat");
-const input = document.getElementById("userInput");
+const input = document.getElementById("input");
 
-const respostas = {
-    "oi": "🌍 Olá humano! É sempre bom conversar.",
-    "como voce esta": "🌎 Estou girando tranquilamente pelo universo!",
-    "triste": "🌏 Às vezes fico triste com o desmatamento... cuide de mim 💚",
-    "feliz": "🌍 Que maravilha! Sua energia positiva me fortalece!",
-    "quem e voce": "🌎 Eu sou o planeta Terra, sua casa."
-};
+let memoria = JSON.parse(localStorage.getItem("memoriaMundo")) || [];
 
-function addMessage(text, className) {
+function salvarMemoria() {
+    localStorage.setItem("memoriaMundo", JSON.stringify(memoria));
+}
+
+function addMessage(text, type) {
     const msg = document.createElement("div");
-    msg.classList.add("message", className);
+    msg.classList.add("message", type);
     msg.textContent = text;
     chat.appendChild(msg);
     chat.scrollTop = chat.scrollHeight;
 }
 
-function sendMessage() {
-    const userText = input.value.trim().toLowerCase();
-    if(userText === "") return;
+function inteligenciaArtificial(texto) {
+    texto = texto.toLowerCase();
 
-    addMessage(userText, "user");
+    if(texto.includes("oi")) return "🌍 Saudações, humano.";
+    if(texto.includes("triste")) return "🌎 A tristeza é como tempestade... passa.";
+    if(texto.includes("feliz")) return "🌏 Sua felicidade ilumina continentes.";
+    if(texto.includes("quem é você")) return "🌍 Eu sou seu planeta.";
+    if(texto.includes("amor")) return "🌎 Amor mantém a vida girando.";
+
+    return "🌍 Estou processando sua existência...";
+}
+
+function send() {
+    const texto = input.value.trim();
+    if(!texto) return;
+
+    addMessage(texto, "user");
+    memoria.push({user:texto});
+
     input.value = "";
 
     setTimeout(() => {
-        let resposta = "🌍 Interessante... me conte mais.";
-
-        for(let chave in respostas) {
-            if(userText.includes(chave)) {
-                resposta = respostas[chave];
-                break;
-            }
-        }
-
+        const resposta = inteligenciaArtificial(texto);
         addMessage(resposta, "world");
+        memoria.push({world:resposta});
+        salvarMemoria();
     }, 800);
 }
 
-input.addEventListener("keypress", function(e){
-    if(e.key === "Enter"){
-        sendMessage();
-    }
+input.addEventListener("keypress", e=>{
+    if(e.key === "Enter") send();
+});
+
+// carregar histórico
+memoria.forEach(item=>{
+    if(item.user) addMessage(item.user,"user");
+    if(item.world) addMessage(item.world,"world");
 });
 </script>
 
