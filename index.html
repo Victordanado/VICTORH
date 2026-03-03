@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minimal Chat</title>
+<title>Mundo Chat</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
 /* RESET */
@@ -15,14 +15,14 @@ body {
   display:flex;
   justify-content:center;
   align-items:center;
-  background:#f0f2f5;
+  background:linear-gradient(to bottom,#a8edea,#fed6e3);
   color:#111;
 }
 
 /* CONTAINER */
 .container {
-  width:400px;
-  height:600px;
+  width:450px;
+  height:650px;
   display:flex;
   flex-direction:column;
   border-radius:20px;
@@ -35,9 +35,10 @@ body {
 .header {
   padding:20px;
   font-weight:700;
-  font-size:18px;
+  font-size:20px;
   text-align:center;
   border-bottom:1px solid #e0e0e0;
+  color:#00796b;
 }
 
 /* CHAT BOX */
@@ -47,13 +48,13 @@ body {
   overflow-y:auto;
   display:flex;
   flex-direction:column;
-  gap:10px;
+  gap:12px;
   background:#fff;
 }
 
 /* SCROLL */
 .chat-box::-webkit-scrollbar { width:6px; }
-.chat-box::-webkit-scrollbar-thumb { background:#ccc; border-radius:10px; }
+.chat-box::-webkit-scrollbar-thumb { background:#00796b; border-radius:10px; }
 
 /* MENSAGENS */
 .message {
@@ -64,13 +65,10 @@ body {
   animation:fadeIn 0.2s ease;
 }
 
-.user { align-self:flex-end; background:#0072ff; color:#fff; }
-.world { align-self:flex-start; background:#e5e5ea; color:#111; }
+.user { align-self:flex-end; background:#00796b; color:#fff; }
+.world { align-self:flex-start; background:#e0f2f1; color:#00796b; }
 
-@keyframes fadeIn {
-  from {opacity:0; transform:translateY(5px);}
-  to {opacity:1; transform:translateY(0);}
-}
+@keyframes fadeIn { from{opacity:0; transform:translateY(5px);} to{opacity:1; transform:translateY(0);} }
 
 /* INPUT AREA */
 .input-area {
@@ -90,30 +88,30 @@ input {
   transition:0.2s;
 }
 
-input:focus { border-color:#0072ff; box-shadow:0 0 5px rgba(0,114,255,0.3); }
+input:focus { border-color:#00796b; box-shadow:0 0 5px rgba(0,121,107,0.3); }
 
 button {
   margin-left:10px;
   padding:12px 20px;
   border:none;
   border-radius:15px;
-  background:#0072ff;
+  background:#00796b;
   color:#fff;
   cursor:pointer;
   font-weight:500;
   transition:0.2s;
 }
 
-button:hover { background:#005ec2; }
+button:hover { background:#004d40; }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <div class="header">Minimal Chat</div>
+  <div class="header">🌍 Mundo Chat</div>
   <div class="chat-box" id="chat"></div>
   <div class="input-area">
-    <input type="text" id="input" placeholder="Digite sua mensagem...">
+    <input type="text" id="input" placeholder="Fale com o mundo...">
     <button onclick="send()">Enviar</button>
   </div>
 </div>
@@ -122,31 +120,48 @@ button:hover { background:#005ec2; }
 const chat = document.getElementById("chat");
 const input = document.getElementById("input");
 
-let memoria = JSON.parse(localStorage.getItem("memoriaMinimal")) || [];
+let memoria = JSON.parse(localStorage.getItem("memoriaMundo")) || [];
 
 function salvarMemoria() {
-  localStorage.setItem("memoriaMinimal", JSON.stringify(memoria));
+  localStorage.setItem("memoriaMundo", JSON.stringify(memoria));
 }
 
 function addMessage(text,type){
-  const msg = document.createElement("div");
+  const msg=document.createElement("div");
   msg.classList.add("message",type);
   msg.textContent=text;
   chat.appendChild(msg);
   chat.scrollTop=chat.scrollHeight;
 }
 
-function ai(text){
-  text=text.toLowerCase();
-  if(text.includes("oi")) return "Olá! 👋";
-  if(text.includes("triste")) return "Tudo vai ficar bem 😌";
-  if(text.includes("feliz")) return "Que bom! 😊";
-  if(text.includes("amor")) return "O amor está no ar ❤️";
-  return "Hmm, interessante...";
+function ai(texto){
+  texto = texto.toLowerCase();
+  
+  // SAUDAÇÕES
+  if(texto.includes("oi")||texto.includes("olá")) return "🌍 Olá! Que bom te ver por aqui!";
+  if(texto.includes("bom dia")) return "☀️ Bom dia! Que seu dia seja incrível!";
+  if(texto.includes("boa tarde")) return "🌤 Boa tarde! Aproveite cada momento!";
+  if(texto.includes("boa noite")) return "🌙 Boa noite! Durma bem e sonhe com o mundo!";
+  
+  // EMOÇÕES
+  if(texto.includes("triste")) return "😌 A tristeza faz parte, mas dias melhores virão.";
+  if(texto.includes("feliz")) return "😊 Que bom que está feliz! Espalhe alegria!";
+  if(texto.includes("amor")) return "❤️ O amor mantém o mundo girando!";
+  
+  // CONHECIMENTO
+  if(texto.includes("planeta")) return "🌎 O nosso planeta é incrível e cheio de vida!";
+  if(texto.includes("natureza")) return "🍃 Preserve a natureza, ela nos dá vida!";
+  if(texto.includes("clima")) return "☁️ O clima muda, mas o planeta continua lindo!";
+  
+  // GENÉRICOS
+  if(texto.includes("quem é você")) return "🌍 Eu sou o Mundo, sempre observando e aprendendo com você!";
+  if(texto.includes("tempo")) return "⏳ O tempo passa rápido, aproveite cada momento!";
+  
+  return "🌱 Interessante... me conte mais sobre o mundo!";
 }
 
 function send(){
-  const texto=input.value.trim();
+  const texto = input.value.trim();
   if(!texto) return;
   addMessage(texto,"user");
   memoria.push({user:texto});
