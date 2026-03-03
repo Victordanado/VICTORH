@@ -3,269 +3,149 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mundo CSS Grande</title>
+<title>Mundo 2.0</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css"> <!-- seu CSS aqui -->
-</head>
-<body>
 
-<div class="container">
-
-    <div class="planet-area">
-        <div class="planet"></div>
-    </div>
-
-    <div class="chat-area">
-        <div class="header">🌍 MUNDO 2.0</div>
-
-        <div class="chat-box"></div>
-
-        <div class="input-area">
-            <input type="text" placeholder="Fale com o mundo...">
-            <button>Enviar</button>
-        </div>
-    </div>
-
-</div>
-
-</body>
-</html>
+<style>
 /* =========================
    RESET GLOBAL
 ========================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 /* =========================
    VARIÁVEIS
 ========================= */
 :root {
-    --primary: #00c6ff;
-    --secondary: #0072ff;
-    --dark: #0f2027;
-    --glass: rgba(255,255,255,0.08);
-    --text: #ffffff;
+  --primary: #00c6ff;
+  --secondary: #0072ff;
+  --glass: rgba(255,255,255,0.08);
+  --text: #ffffff;
 }
 
 /* =========================
    BODY FUNDO ANIMADO
 ========================= */
 body {
-    height: 100vh;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c92d2);
-    background-size: 400% 400%;
-    animation: backgroundMove 15s ease infinite;
-    overflow: hidden;
-    color: var(--text);
+  height:100vh;
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c92d2);
+  background-size:400% 400%;
+  animation:backgroundMove 15s ease infinite;
+  overflow:hidden;
+  color:var(--text);
 }
 
 /* ANIMAÇÃO FUNDO */
 @keyframes backgroundMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  0% { background-position:0% 50%; }
+  50% { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
 }
 
 /* =========================
-   CONTAINER PRINCIPAL
+   CONTAINER
 ========================= */
 .container {
-    width: 1000px;
-    height: 650px;
-    display: flex;
-    border-radius: 30px;
-    backdrop-filter: blur(25px);
-    background: var(--glass);
-    box-shadow: 0 0 80px rgba(0,255,255,0.3);
-    overflow: hidden;
-    transition: 0.5s ease;
+  width:900px;
+  height:600px;
+  display:flex;
+  border-radius:30px;
+  backdrop-filter:blur(25px);
+  background:var(--glass);
+  box-shadow:0 0 80px rgba(0,255,255,0.3);
+  overflow:hidden;
 }
 
-/* EFEITO NEON BORDA */
-.container:hover {
-    box-shadow: 0 0 100px var(--primary);
-}
-
-/* =========================
-   PLANETA
-========================= */
-.planet-area {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
+/* PLANETA */
+.planet-area { flex:1; display:flex; justify-content:center; align-items:center; }
 .planet {
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #00c6ff, #0072ff, #001f3f);
-    box-shadow: 0 0 100px var(--primary);
-    animation: rotatePlanet 25s linear infinite, floatPlanet 6s ease-in-out infinite;
+  width:250px;
+  height:250px;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, #00c6ff, #0072ff, #001f3f);
+  box-shadow:0 0 100px var(--primary);
+  animation: rotatePlanet 25s linear infinite, floatPlanet 6s ease-in-out infinite;
+}
+@keyframes rotatePlanet { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+@keyframes floatPlanet { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-20px);} }
+
+/* CHAT */
+.chat-area { flex:1; display:flex; flex-direction:column; background: rgba(0,0,0,0.4); }
+.header { padding:25px; text-align:center; font-size:22px; font-weight:bold; letter-spacing:3px; border-bottom:1px solid rgba(255,255,255,0.1); text-transform:uppercase; }
+.chat-box { flex:1; padding:25px; overflow-y:auto; display:flex; flex-direction:column; gap:12px; }
+.chat-box::-webkit-scrollbar { width:6px; }
+.chat-box::-webkit-scrollbar-thumb { background:var(--primary); border-radius:10px; }
+.message { padding:14px 20px; border-radius:25px; max-width:75%; font-size:14px; animation:fadeIn 0.3s ease; backdrop-filter:blur(10px); }
+.user { align-self:flex-end; background: linear-gradient(45deg,var(--primary),var(--secondary)); }
+.world { align-self:flex-start; background: rgba(255,255,255,0.15); }
+@keyframes fadeIn { from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+
+/* INPUT */
+.input-area { display:flex; padding:20px; border-top:1px solid rgba(255,255,255,0.1); }
+input { flex:1; padding:14px; border-radius:30px; border:none; outline:none; font-size:14px; transition:0.3s; }
+input:focus { box-shadow:0 0 10px var(--primary); }
+button { margin-left:12px; padding:14px 25px; border:none; border-radius:30px; background:linear-gradient(45deg,var(--primary),var(--secondary)); color:white; font-weight:bold; cursor:pointer; transition:0.3s ease; }
+button:hover { transform:scale(1.1); box-shadow:0 0 20px var(--primary); }
+
+/* RESPONSIVO */
+@media(max-width:900px){
+  .container{ flex-direction:column; width:95%; height:95%; }
+  .planet { width:180px; height:180px; margin:20px auto; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <div class="planet-area">
+    <div class="planet"></div>
+  </div>
+
+  <div class="chat-area">
+    <div class="header">🌍 MUNDO 2.0</div>
+    <div class="chat-box" id="chat"></div>
+    <div class="input-area">
+      <input type="text" id="input" placeholder="Fale com o mundo...">
+      <button onclick="send()">Enviar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
+
+function addMessage(text, type){
+  const msg = document.createElement("div");
+  msg.classList.add("message", type);
+  msg.textContent = text;
+  chat.appendChild(msg);
+  chat.scrollTop = chat.scrollHeight;
 }
 
-/* ROTAÇÃO */
-@keyframes rotatePlanet {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+function send(){
+  const texto = input.value.trim();
+  if(!texto) return;
+  addMessage(texto,"user");
+  input.value="";
+  
+  setTimeout(()=>{
+    let resposta = "🌍 Mundo: Interessante...";
+    if(texto.toLowerCase().includes("oi")) resposta="🌎 Mundo: Olá humano!";
+    if(texto.toLowerCase().includes("triste")) resposta="🌏 Mundo: Tristeza passa, cuide-se.";
+    if(texto.toLowerCase().includes("feliz")) resposta="🌍 Mundo: Que bom que está feliz!";
+    addMessage(resposta,"world");
+  },800);
 }
+input.addEventListener("keypress", e=>{
+  if(e.key==="Enter") send();
+});
+</script>
 
-/* FLUTUAR */
-@keyframes floatPlanet {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-}
-
-/* =========================
-   CHAT
-========================= */
-.chat-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background: rgba(0,0,0,0.4);
-}
-
-/* HEADER */
-.header {
-    padding: 25px;
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    letter-spacing: 3px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    text-transform: uppercase;
-}
-
-/* CAIXA CHAT */
-.chat-box {
-    flex: 1;
-    padding: 25px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-/* SCROLL CUSTOM */
-.chat-box::-webkit-scrollbar {
-    width: 6px;
-}
-
-.chat-box::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 10px;
-}
-
-/* MENSAGENS */
-.message {
-    padding: 14px 20px;
-    border-radius: 25px;
-    max-width: 75%;
-    font-size: 14px;
-    animation: fadeIn 0.3s ease;
-    backdrop-filter: blur(10px);
-}
-
-/* USUÁRIO */
-.user {
-    align-self: flex-end;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-}
-
-/* MUNDO */
-.world {
-    align-self: flex-start;
-    background: rgba(255,255,255,0.15);
-}
-
-/* ANIMAÇÃO ENTRADA */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* =========================
-   INPUT
-========================= */
-.input-area {
-    display: flex;
-    padding: 20px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-input {
-    flex: 1;
-    padding: 14px;
-    border-radius: 30px;
-    border: none;
-    outline: none;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-input:focus {
-    box-shadow: 0 0 10px var(--primary);
-}
-
-/* BOTÃO */
-button {
-    margin-left: 12px;
-    padding: 14px 25px;
-    border: none;
-    border-radius: 30px;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-/* HOVER */
-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px var(--primary);
-}
-
-/* =========================
-   RESPONSIVO
-========================= */
-@media (max-width: 900px) {
-    .container {
-        flex-direction: column;
-        width: 95%;
-        height: 95%;
-    }
-
-    .planet {
-        width: 180px;
-        height: 180px;
-    }
-}
-
-/* =========================
-   DARK MODE AUTOMÁTICO
-========================= */
-@media (prefers-color-scheme: light) {
-    body {
-        background: linear-gradient(-45deg, #89f7fe, #66a6ff);
-        color: #111;
-    }
-
-    .chat-area {
-        background: rgba(255,255,255,0.4);
-    }
-
-    .world {
-        background: rgba(0,0,0,0.1);
-        color: #111;
-    }
-}
+</body>
+</html>
