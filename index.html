@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus IA | Dark Fantasy World</title>
+    <title>Nexus AI | Global Interface</title>
     
     <style>
+        /* RESET E FONTES */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            /* Fundo com imagem de Dark Fantasy */
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), 
-                        url('https://images.unsplash.com/photo-1519074063912-ad2a602159d7?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+            /* Fundo com imagem do mundo/tecnologia */
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             display: flex;
@@ -24,239 +25,250 @@
             align-items: center;
             color: white;
             overflow: hidden;
-            position: relative;
         }
 
-        /* Efeitos de fumaça/névoa nas bordas */
-        .overlay-vignette {
+        /* ANIMAÇÃO DE FUNDO (PULSO) */
+        body::before {
+            content: "";
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 40%, black 100%);
-            pointer-events: none;
-            z-index: 1;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.05) 0%, transparent 50%);
+            animation: pulseBg 10s infinite alternate;
+            z-index: 0;
         }
 
-        /* CONTAINER COM VIDRO MAIS AVANÇADO */
-        .glass-panel {
-            width: 95%;
-            max-width: 1100px;
+        @keyframes pulseBg {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 1; }
+        }
+
+        /* PAINEL PRINCIPAL (GLASSMORPHISM) */
+        .main-container {
+            width: 90%;
+            max-width: 1200px;
             height: 85vh;
-            background: rgba(10, 10, 10, 0.6); 
-            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            display: flex;
-            flex-direction: row; /* Dividido em duas colunas */
-            z-index: 2;
-            box-shadow: 0 0 60px rgba(0,0,0,0.9);
+            border-radius: 30px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            z-index: 1;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
             overflow: hidden;
+            animation: containerShow 1s ease-out;
         }
 
-        /* BARRA LATERAL (NOVIDADE: MAIS COISAS NA TELA) */
+        @keyframes containerShow {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* BARRA LATERAL (MUNDO) */
         .sidebar {
-            width: 250px;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.3);
             border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
             display: flex;
             flex-direction: column;
-            padding: 20px;
-            display: none; /* Escondido em telas pequenas */
+            gap: 20px;
         }
-
-        @media (min-width: 768px) { .sidebar { display: flex; } }
 
         .sidebar h2 {
-            font-size: 0.8rem;
-            color: #7c4dff;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: #00f2ff;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
         }
 
-        .world-item {
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            margin-bottom: 10px;
+        .nav-item {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
             font-size: 0.85rem;
-            border: 1px solid transparent;
-            cursor: pointer;
             transition: 0.3s;
+            cursor: pointer;
+            border-left: 3px solid transparent;
         }
 
-        .world-item:hover {
-            border-color: #00f2ff;
-            background: rgba(0, 242, 255, 0.05);
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid #00f2ff;
+            padding-left: 20px;
         }
 
-        /* CONTEÚDO PRINCIPAL */
-        .main-chat {
-            flex: 1;
+        /* ÁREA DO CHAT */
+        .chat-section {
             display: flex;
             flex-direction: column;
+            height: 100%;
         }
 
-        .header {
-            padding: 20px;
-            text-align: left;
+        .chat-header {
+            padding: 25px 40px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .header h1 {
-            font-size: 1.1rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            background: linear-gradient(to right, #00f2ff, #7c4dff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
+        .chat-header h1 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
         }
 
-        .status { font-size: 0.7rem; color: #00ff88; text-transform: uppercase; }
+        .chat-header span { color: #00f2ff; font-weight: 800; }
 
-        #chat-area {
+        .chat-messages {
             flex: 1;
-            padding: 25px;
+            padding: 40px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
 
+        /* BALÕES DE MENSAGEM */
         .bubble {
-            padding: 16px;
-            border-radius: 12px;
-            max-width: 85%;
-            font-size: 0.9rem;
+            padding: 18px 25px;
+            border-radius: 20px;
+            max-width: 70%;
+            font-size: 0.95rem;
             line-height: 1.6;
-            animation: fadeIn 0.4s ease forwards;
+            animation: messagePop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes messagePop {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .ai {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.07);
             align-self: flex-start;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-left: 4px solid #7c4dff;
+            border-bottom-left-radius: 4px;
         }
 
         .user {
-            background: linear-gradient(135deg, #00f2ff 0%, #0072ff 100%);
+            background: #00f2ff;
             color: #000;
             font-weight: 600;
             align-self: flex-end;
-            box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0, 242, 255, 0.2);
         }
 
-        /* INPUT BOX */
-        .input-box {
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
+        /* CAMPO DE ENTRADA */
+        .input-area {
+            padding: 30px 40px;
+            background: rgba(0, 0, 0, 0.2);
             display: flex;
-            gap: 12px;
+            gap: 15px;
         }
 
         input {
             flex: 1;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
+            padding: 18px 25px;
+            border-radius: 15px;
             color: white;
             outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00f2ff;
         }
 
         button {
-            background: #7c4dff;
-            color: white;
+            background: #00f2ff;
             border: none;
-            padding: 0 25px;
-            border-radius: 10px;
-            font-weight: 700;
+            padding: 0 30px;
+            border-radius: 15px;
+            font-weight: 800;
             cursor: pointer;
             transition: 0.3s;
         }
 
         button:hover {
-            background: #00f2ff;
-            color: black;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 242, 255, 0.4);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: #333; }
+        /* SCROLLBAR PERSONALIZADA */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="overlay-vignette"></div>
-
-    <div class="glass-panel">
+    <div class="main-container">
         <aside class="sidebar">
-            <h2>Grimórios Ativos</h2>
-            <div class="world-item">🏰 Crônicas do Castelo Negro</div>
-            <div class="world-item">🌋 Alquimia do Vulcão</div>
-            <div class="world-item">💀 Necromancia Proibida</div>
-            <div class="world-item">⚔️ Ordens de Cavalaria</div>
+            <h2>🌍 EXPLORAÇÃO MUNDIAL</h2>
+            <div class="nav-item">Conectar Satélite</div>
+            <div class="nav-item">Mapeamento Global</div>
+            <div class="nav-item">Redes Neurais</div>
+            <div class="nav-item">Banco de Dados</div>
             
-            <h2 style="margin-top: 30px;">Histórico</h2>
-            <div style="opacity: 0.5; font-size: 0.7rem;">Nenhuma alma encontrada...</div>
+            <h2 style="margin-top: auto;">SISTEMA</h2>
+            <div style="font-size: 0.7rem; color: #666;">V3.0.4 Online</div>
         </aside>
 
-        <div class="main-chat">
-            <div class="header">
-                <h1>Nexus Escritor IA</h1>
-                <div class="status">● Sistema Imersivo</div>
-            </div>
-
-            <div id="chat-area">
-                <div class="bubble ai">
-                    O mundo das sombras aguarda suas palavras. Eu sou o Nexus, seu escriba nas trevas. O que vamos registrar hoje?
+        <section class="chat-section">
+            <div class="chat-header">
+                <h1>NEXUS <span>GLOBAL</span></h1>
+                <div style="display:flex; align-items:center; gap:10px; font-size: 0.7rem;">
+                    <span style="color: #00ff88;">●</span> SERVIDOR ATIVO
                 </div>
             </div>
 
-            <div class="input-box">
-                <input type="text" id="prompt" placeholder="Escreva o destino deste mundo...">
-                <button onclick="send()">ENVIAR</button>
+            <div class="chat-messages" id="chat">
+                <div class="bubble ai">
+                    Bem-vindo à rede global. Estou pronto para processar qualquer informação do mundo real para você. O que deseja criar?
+                </div>
             </div>
-        </div>
+
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Digite sua mensagem ao mundo...">
+                <button onclick="enviar()">ENVIAR</button>
+            </div>
+        </section>
     </div>
 
     <script>
-        function send() {
-            const input = document.getElementById('prompt');
-            const area = document.getElementById('chat-area');
+        function enviar() {
+            const input = document.getElementById('userInput');
+            const chat = document.getElementById('chat');
 
             if (input.value.trim() !== "") {
                 const uMsg = document.createElement('div');
                 uMsg.className = 'bubble user';
                 uMsg.textContent = input.value;
-                area.appendChild(uMsg);
+                chat.appendChild(uMsg);
 
-                const val = input.value;
+                const prompt = input.value;
                 input.value = "";
 
+                // Scroll automático
+                chat.scrollTop = chat.scrollHeight;
+
+                // Resposta simulada
                 setTimeout(() => {
                     const aMsg = document.createElement('div');
                     aMsg.className = 'bubble ai';
-                    aMsg.innerHTML = "📜 <b>Escriba:</b> Suas ordens sobre <i>" + val + "</i> foram ouvidas. A névoa se dissipa e a história começa a ser escrita...";
-                    area.appendChild(aMsg);
-                    area.scrollTop = area.scrollHeight;
-                }, 800);
-
-                area.scrollTop = area.scrollHeight;
+                    aMsg.textContent = "🌍 Processando dados globais sobre: '" + prompt + "'... A resposta está sendo gerada através dos servidores mundiais.";
+                    chat.appendChild(aMsg);
+                    chat.scrollTop = chat.scrollHeight;
+                }, 700);
             }
         }
 
-        document.getElementById('prompt').onkeypress = function(e) {
-            if (e.keyCode == 13) send();
+        document.getElementById('userInput').onkeypress = function(e) {
+            if (e.keyCode == 13) enviar();
         }
     </script>
 </body>
