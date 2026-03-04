@@ -3,50 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA Premium Interface</title>
+    <title>Nexus AI | Premium Dark</title>
     
     <style>
-        /* CSS INTEGRADO - O DESIGN */
-        :root {
-            --preto-profundo: #050505;
-            --neon-azul: #00f2ff;
-            --neon-roxo: #7c4dff;
-            --texto: #ffffff;
-            --vidro: rgba(255, 255, 255, 0.03);
+        /* RESET GERAL PARA GARANTIR O FUNDO PRETO */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, sans-serif;
         }
 
         body {
-            background-color: var(--preto-profundo);
-            color: var(--texto);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
+            background-color: #000000 !important; /* Força o preto */
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            color: white;
             overflow: hidden;
-            /* Luzes de fundo */
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 242, 255, 0.07) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(124, 77, 255, 0.07) 0%, transparent 40%);
+            position: relative;
         }
 
-        /* Container Principal com efeito de Vidro */
-        .app-container {
+        /* EFEITOS DE LUZ NO FUNDO */
+        .glow {
+            position: absolute;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.08) 0%, rgba(0,0,0,0) 70%);
+            top: -10%;
+            left: -10%;
+            z-index: 0;
+        }
+
+        .glow-2 {
+            position: absolute;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, rgba(124, 77, 255, 0.08) 0%, rgba(0,0,0,0) 70%);
+            bottom: -10%;
+            right: -10%;
+            z-index: 0;
+        }
+
+        /* CONTAINER PRINCIPAL */
+        .glass-panel {
             width: 90%;
-            max-width: 850px;
-            height: 80vh;
-            background: var(--vidro);
-            backdrop-filter: blur(20px);
+            max-width: 1000px;
+            height: 85vh;
+            background: rgba(15, 15, 15, 0.7); /* Preto translúcido */
+            backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
+            border-radius: 24px;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-            position: relative;
             z-index: 1;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            overflow: hidden;
         }
 
+        /* TOPO */
         .header {
             padding: 25px;
             text-align: center;
@@ -54,17 +70,17 @@
         }
 
         .header h1 {
-            margin: 0;
-            font-size: 1.4rem;
-            letter-spacing: 5px;
+            font-size: 1.2rem;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            background: linear-gradient(90deg, var(--neon-azul), var(--neon-roxo));
+            background: linear-gradient(to right, #00f2ff, #7c4dff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-weight: 800;
         }
 
-        /* Área de Mensagens */
-        #chat-window {
+        /* ÁREA DE CONVERSA */
+        #chat-area {
             flex: 1;
             padding: 30px;
             overflow-y: auto;
@@ -73,34 +89,33 @@
             gap: 20px;
         }
 
-        /* Estilo da Mensagem da IA */
-        .msg {
+        .bubble {
+            padding: 16px 20px;
+            border-radius: 16px;
             max-width: 80%;
-            padding: 15px 20px;
-            border-radius: 20px;
             font-size: 0.95rem;
             line-height: 1.5;
-            animation: surgir 0.4s ease-out;
+            animation: fadeIn 0.4s ease forwards;
         }
 
-        .ai-msg {
-            background: rgba(255, 255, 255, 0.07);
+        .ai {
+            background: rgba(255, 255, 255, 0.05);
             align-self: flex-start;
-            border-bottom-left-radius: 2px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .user-msg {
-            background: linear-gradient(135deg, var(--neon-roxo), #5e35b1);
-            color: white;
+        .user {
+            background: linear-gradient(135deg, #00f2ff 0%, #0072ff 100%);
+            color: #000;
+            font-weight: 600;
             align-self: flex-end;
-            border-bottom-right-radius: 2px;
-            box-shadow: 0 4px 15px rgba(124, 77, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
         }
 
-        /* Área de Input */
-        .footer-input {
-            padding: 30px;
+        /* BARRA DE DIGITAÇÃO */
+        .input-box {
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.4);
             display: flex;
             gap: 15px;
         }
@@ -109,99 +124,99 @@
             flex: 1;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 25px;
-            border-radius: 15px;
+            padding: 18px;
+            border-radius: 14px;
             color: white;
+            font-size: 1rem;
             outline: none;
             transition: 0.3s;
         }
 
         input:focus {
-            border-color: var(--neon-azul);
-            box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+            border-color: #00f2ff;
+            background: rgba(255, 255, 255, 0.08);
         }
 
         button {
-            background: var(--neon-azul);
+            background: white;
+            color: black;
             border: none;
-            padding: 0 25px;
-            border-radius: 15px;
-            font-weight: bold;
+            padding: 0 30px;
+            border-radius: 14px;
+            font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         button:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 20px var(--neon-azul);
+            background: #00f2ff;
         }
 
-        /* Animação */
-        @keyframes surgir {
+        @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Scrollbar Personalizada */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        /* SCROLLBAR */
+        #chat-area::-webkit-scrollbar { width: 4px; }
+        #chat-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
+    <div class="glow"></div>
+    <div class="glow-2"></div>
+
+    <div class="glass-panel">
         <div class="header">
-            <h1>Nexus Escritor IA</h1>
+            <h1>Nexus IA Writing</h1>
         </div>
 
-        <div id="chat-window">
-            <div class="msg ai-msg">
-                Olá! Sou seu assistente de escrita. O que vamos criar hoje no cenário dark?
+        <div id="chat-area">
+            <div class="bubble ai">
+                Sistema carregado. Estou pronto para criar com você. O que deseja escrever agora?
             </div>
         </div>
 
-        <div class="footer-input">
-            <input type="text" id="userInput" placeholder="Digite seu comando aqui...">
-            <button onclick="enviar()">Enviar</button>
+        <div class="input-box">
+            <input type="text" id="prompt" placeholder="Digite seu comando aqui...">
+            <button onclick="send()">ENVIAR</button>
         </div>
     </div>
 
     <script>
-        // Lógica simples para simular a IA
-        function enviar() {
-            const input = document.getElementById('userInput');
-            const chat = document.getElementById('chat-window');
+        function send() {
+            const input = document.getElementById('prompt');
+            const area = document.getElementById('chat-area');
 
             if (input.value.trim() !== "") {
-                // Mensagem do usuário
-                const userMsg = document.createElement('div');
-                userMsg.className = 'msg user-msg';
-                userMsg.textContent = input.value;
-                chat.appendChild(userMsg);
+                // Mensagem do Usuário
+                const uMsg = document.createElement('div');
+                uMsg.className = 'bubble user';
+                uMsg.textContent = input.value;
+                area.appendChild(uMsg);
 
-                const textoUsuario = input.value;
+                const val = input.value;
                 input.value = "";
 
-                // Scroll para baixo
-                chat.scrollTop = chat.scrollHeight;
-
-                // Resposta da IA (Simulada)
+                // Resposta Automática da IA
                 setTimeout(() => {
-                    const aiMsg = document.createElement('div');
-                    aiMsg.className = 'msg ai-msg';
-                    aiMsg.textContent = "Estou processando sua solicitação sobre: '" + textoUsuario + "'. Como sou um design de exemplo, imagine aqui um texto incrível sendo gerado!";
-                    chat.appendChild(aiMsg);
-                    chat.scrollTop = chat.scrollHeight;
-                }, 800);
+                    const aMsg = document.createElement('div');
+                    aMsg.className = 'bubble ai';
+                    aMsg.textContent = "Analisei seu pedido: '" + val + "'. Gerando conteúdo otimizado...";
+                    area.appendChild(aMsg);
+                    area.scrollTop = area.scrollHeight;
+                }, 600);
+
+                area.scrollTop = area.scrollHeight;
             }
         }
 
-        // Permitir enviar com ENTER
-        document.getElementById('userInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') enviar();
-        });
+        // Detectar Tecla Enter
+        document.getElementById('prompt').onkeypress = function(e) {
+            if (e.keyCode == 13) send();
+        }
     </script>
 </body>
 </html>
