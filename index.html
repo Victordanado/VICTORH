@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Olá Mundo</title>
+    <title>Processo: Falar com o Mundo</title>
     <style>
         /* Resetando margens e padding */
         * {
@@ -15,42 +15,127 @@
         /* Corpo da página */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f7f7f7;
+            background-color: #000000;  /* Fundo Preto */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            color: white;
+            overflow: hidden;
             text-align: center;
         }
 
-        /* Estilo do título */
+        /* Título principal */
         h1 {
-            font-size: 3rem;
-            color: #ff6347; /* Tom de vermelho chamativo */
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            font-size: 5rem;
+            color: #ff6347; /* Vermelho vibrante */
+            margin-bottom: 40px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: bold;
+            animation: fadeInTitle 3s ease-in-out;
         }
 
-        /* Estilo da imagem */
-        .imagem {
-            width: 200px;
-            height: 200px;
+        /* Animação para o título */
+        @keyframes fadeInTitle {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Caixa de processo */
+        .processo {
+            width: 350px;
+            height: 350px;
+            background-color: #333;  /* Cor de fundo mais escura dentro da caixa */
             border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid #ff6347;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            animation: rotate 6s linear infinite;
+            border: 10px solid #ff6347; /* Contorno chamativo */
+            overflow: hidden;
         }
 
-        /* Efeito ao passar o mouse na imagem */
-        .imagem:hover {
-            transform: scale(1.1);
+        /* Animação de rotação da caixa */
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
+
+        /* Ícone do mundo */
+        .icone-mundo {
+            width: 150px;
+            height: 150px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/8d/Globe_icon_%28vector%29.svg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            animation: bounce 1.5s ease-in-out infinite;
+            border: 5px solid #ff6347; /* Contorno vibrante ao redor do ícone */
+        }
+
+        /* Animação de "salto" do ícone do mundo */
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Texto de processo */
+        .texto-processo {
+            position: absolute;
+            font-size: 1.8rem;
+            color: #ff6347;
+            font-weight: bold;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: fadeInProcess 3s ease-in-out forwards 1s; /* Delay de 1 segundo */
+        }
+
+        /* Animação do texto de processo aparecendo */
+        @keyframes fadeInProcess {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Fundo de partículas animadas */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 99, 71, 0.2), rgba(0, 0, 0, 0.9));
+            pointer-events: none;
+            animation: particlesMove 3s linear infinite;
+        }
+
+        /* Animação das partículas em movimento */
+        @keyframes particlesMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
     </style>
 </head>
 <body>
-    <h1>Olá Mundo!</h1>
-    <img src="https://via.placeholder.com/200" alt="Imagem Chamativa" class="imagem">
+
+    <!-- Fundo de partículas -->
+    <div class="particles"></div>
+
+    <!-- Título -->
+    <h1>Processo: Falar com o Mundo</h1>
+
+    <!-- Caixa de processo -->
+    <div class="processo">
+        <!-- Ícone do mundo -->
+        <div class="icone-mundo"></div>
+        <!-- Texto do processo -->
+        <div class="texto-processo">Conectando...</div>
+    </div>
+
 </body>
 </html>
