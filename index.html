@@ -5,75 +5,165 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Olá, Mundo!</title>
     <style>
+        /* Resetando margens e paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
+            background-color: #000;
+            color: #fff;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             flex-direction: column;
+            overflow: hidden;
             padding: 20px;
+            position: relative;
         }
 
+        /* Animação para o título "Olá, Mundo!" */
         h1 {
-            color: #2e7d32;
-            font-size: 4em;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #fff;
+            animation: fadeIn 2s ease-in-out;
+            text-align: center;
             margin-bottom: 20px;
-            text-align: center;
+            letter-spacing: 2px;
         }
 
+        /* Animação para o efeito de fade in */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Container com o formulário de entrada */
         .container {
-            background-color: #ffffff;
+            position: relative;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            width: 100%;
-            max-width: 800px;
             text-align: center;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-in-out 0.5s;
         }
 
-        .container p {
-            font-size: 1.2em;
-            color: #555555;
-        }
-
+        /* Área de texto onde o usuário vai escrever */
         textarea {
             width: 100%;
             height: 150px;
-            font-size: 1.2em;
-            padding: 10px;
-            border: 2px solid #2e7d32;
-            border-radius: 10px;
-            resize: none;
-            margin-top: 20px;
-        }
-
-        button {
-            background-color: #2e7d32;
-            color: white;
-            font-size: 1.5em;
-            padding: 10px 20px;
+            padding: 15px;
+            background-color: #333;
             border: none;
             border-radius: 10px;
+            color: #fff;
+            font-size: 1.2rem;
+            resize: none;
+            margin-top: 20px;
+            outline: none;
+            box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        textarea:focus {
+            border: 2px solid #4CAF50;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+        }
+
+        /* Botão de interação */
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 1.5rem;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 30px;
             cursor: pointer;
             margin-top: 20px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
             background-color: #388e3c;
         }
+
+        /* Planeta flutuante */
+        .planet {
+            position: absolute;
+            top: -200px;
+            right: 10%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #4CAF50, #2e7d32);
+            border-radius: 50%;
+            box-shadow: 0 4px 30px rgba(0, 255, 0, 0.5);
+            animation: orbit 10s linear infinite;
+        }
+
+        /* Animação do planeta para simular movimento de órbita */
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(0); }
+            50% { transform: rotate(180deg) translateX(200px); }
+            100% { transform: rotate(360deg) translateX(0); }
+        }
+
+        /* Efeito de brilho no planeta */
+        .planet::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: planetGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes planetGlow {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Título principal -->
     <h1>Olá, Mundo!</h1>
+
+    <!-- Container de conteúdo -->
     <div class="container">
-        <p>Digite algo abaixo e clique no botão para enviar sua mensagem!</p>
-        <textarea placeholder="Escreva aqui..."></textarea>
+        <p>Escreva sua mensagem abaixo e envie para o universo!</p>
+        <textarea placeholder="Digite sua mensagem..."></textarea>
         <br>
-        <button onclick="alert('Mensagem enviada!')">Enviar Mensagem</button>
+        <button onclick="enviarMensagem()">Enviar</button>
     </div>
+
+    <!-- Planeta flutuante -->
+    <div class="planet"></div>
+
+    <script>
+        // Função para mostrar a interação do botão
+        function enviarMensagem() {
+            let texto = document.querySelector('textarea').value;
+            if (texto.trim() === '') {
+                alert('Por favor, digite algo!');
+            } else {
+                alert('Mensagem enviada para o universo!');
+                // Limpar o campo de texto
+                document.querySelector('textarea').value = '';
+            }
+        }
+    </script>
+
 </body>
 </html>
