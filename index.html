@@ -3,172 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Olá, Mundo!</title>
+    <title>Mandar Mensagem para o Universo</title>
     <style>
-        /* Resetando margens e paddings */
-        * {
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #000;
-            color: #fff;
-            height: 100vh;
+            background-color: #121212;
+            color: #e0e0e0;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
             flex-direction: column;
-            overflow: hidden;
-            padding: 20px;
-            position: relative;
-            background-image: url('https://via.placeholder.com/1500x1000/000000/FFFFFF?text=Background+Space'); /* Imagem de fundo (cósmica ou espacial) */
-            background-size: cover;
-            background-position: center;
+            text-align: center;
         }
 
-        /* Animação para o título "Olá, Mundo!" */
         h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            color: #fff;
-            animation: fadeIn 2s ease-in-out;
+            color: #3498db;
+            font-size: 3rem;
             text-align: center;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
         }
 
-        /* Animação para o efeito de fade in */
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Container com o formulário de entrada */
-        .container {
-            position: relative;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 2s ease-in-out 0.5s;
-        }
-
-        /* Área de texto onde o usuário vai escrever */
-        textarea {
-            width: 100%;
-            height: 150px;
-            padding: 15px;
+        #messageBox {
+            width: 80%;
+            max-width: 500px;
+            padding: 10px;
+            margin-top: 20px;
             background-color: #333;
-            border: none;
-            border-radius: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
             color: #fff;
             font-size: 1.2rem;
+            height: 150px;
             resize: none;
-            margin-top: 20px;
-            outline: none;
-            box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease-in-out;
         }
 
-        textarea:focus {
-            border: 2px solid #4CAF50;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
-        }
-
-        /* Botão de interação */
-        button {
-            background-color: #4CAF50;
-            color: #fff;
-            font-size: 1.5rem;
-            padding: 15px 25px;
+        #sendBtn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
             border: none;
-            border-radius: 30px;
-            cursor: pointer;
+            border-radius: 5px;
             margin-top: 20px;
-            transition: background-color 0.3s ease;
+            cursor: pointer;
+            font-size: 1.2rem;
         }
 
-        button:hover {
-            background-color: #388e3c;
+        #sendBtn:hover {
+            background-color: #2980b9;
         }
 
-        /* Planeta flutuante (usando imagem) */
-        .planet {
-            position: absolute;
-            top: -200px;
-            right: 10%;
+        #response {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #3498db;
+        }
+
+        #imagesContainer {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .image {
             width: 150px;
             height: 150px;
-            background-image: url('https://via.placeholder.com/150'); /* Imagem do planeta */
-            background-size: cover;
-            background-position: center;
-            border-radius: 50%;
-            box-shadow: 0 4px 30px rgba(0, 255, 0, 0.5);
-            animation: orbit 10s linear infinite;
+            margin: 10px;
+            object-fit: cover;
+            border-radius: 5px;
         }
 
-        /* Animação do planeta para simular movimento de órbita */
-        @keyframes orbit {
-            0% { transform: rotate(0deg) translateX(0); }
-            50% { transform: rotate(180deg) translateX(200px); }
-            100% { transform: rotate(360deg) translateX(0); }
+        .image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
         }
 
-        /* Efeito de brilho no planeta */
-        .planet::before {
-            content: '';
-            position: absolute;
-            top: 10%;
-            left: 10%;
-            width: 80%;
-            height: 80%;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            animation: planetGlow 2s infinite ease-in-out;
+        .long-text {
+            font-size: 1.1rem;
+            color: #bbb;
+            margin-top: 20px;
+            max-width: 800px;
+            line-height: 1.6;
         }
 
-        @keyframes planetGlow {
-            0% { opacity: 0.3; }
-            50% { opacity: 1; }
-            100% { opacity: 0.3; }
+        .long-text p {
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
+    <h1>Mandar Mensagem para o Universo</h1>
+    <textarea id="messageBox" placeholder="Escreva sua mensagem..."></textarea>
+    <button id="sendBtn" onclick="sendMessage()">Enviar Mensagem</button>
 
-    <!-- Título principal -->
-    <h1>Olá, Mundo!</h1>
-
-    <!-- Container de conteúdo -->
-    <div class="container">
-        <p>Escreva sua mensagem abaixo e envie para o universo!</p>
-        <textarea placeholder="Digite sua mensagem..."></textarea>
-        <br>
-        <button onclick="enviarMensagem()">Enviar</button>
+    <div id="response"></div>
+    <div id="imagesContainer">
+        <div class="image">
+            <img src="https://via.placeholder.com/150?text=Mundo" alt="Mundo">
+        </div>
+        <div class="image">
+            <img src="https://via.placeholder.com/150?text=Planeta" alt="Planeta">
+        </div>
+        <div class="image">
+            <img src="https://via.placeholder.com/150?text=Estrela" alt="Estrela">
+        </div>
+        <div class="image">
+            <img src="https://via.placeholder.com/150?text=Galáxia" alt="Galáxia">
+        </div>
+        <div class="image">
+            <img src="https://via.placeholder.com/150?text=Satélite" alt="Satélite">
+        </div>
+        <div class="image">
+            <img src="https://via.placeholder.com/150?text=Astronauta" alt="Astronauta">
+        </div>
     </div>
 
-    <!-- Planeta flutuante -->
-    <div class="planet"></div>
+    <div class="long-text">
+        <p>O universo, vasto e enigmático, continua a fascinar cientistas, filósofos e curiosos ao redor do mundo. O que será que há além do que podemos ver? Cada estrela no céu pode ser o lar de uma civilização desconhecida, e cada planeta ao redor de uma estrela distante pode abrigar formas de vida ainda não imaginadas. Desde os primórdios da humanidade, as pessoas têm tentado se conectar com o cosmos de diversas maneiras, seja por meio da observação das estrelas, seja por meio de teorias sobre buracos negros, galáxias e matéria escura. Mas uma questão persiste: estamos realmente sozinhos no universo? Ao enviar uma mensagem, você não está apenas comunicando algo para o espaço; você está se conectando a algo muito maior. A cada palavra digitada, você torna-se uma parte de uma história que transcende o tempo e o espaço. Com cada mensagem que enviamos, seja ela física, digital ou simbólica, estamos contribuindo para um entendimento mais profundo de nossa própria existência e do papel que desempenhamos na imensidão do cosmos.</p>
+        <p>Se você já se perguntou o que aconteceria se o universo respondesse à sua mensagem, talvez a resposta seja mais simples do que parece: o ato de enviar a mensagem em si já é uma forma de resposta. A curiosidade humana e a busca por respostas sempre impulsionaram nossa jornada científica e filosófica. À medida que as tecnologias avançam, novas formas de nos comunicarmos com o universo surgem. As sondas espaciais, como a Voyager 1, que carrega mensagens de saudação de nossa civilização, estão viajando por anos-luz para transmitir um pedaço de nossa história para qualquer vida inteligente que possa encontrá-la.</p>
+        <p>Ao enviar sua mensagem, você não está apenas esperando uma resposta imediata. O simples ato de enviar uma mensagem para o universo é um lembrete de nossa pequenez em meio à vastidão do espaço, mas também da nossa capacidade de sonhar, explorar e conectar. Nós somos pequenos, mas ao mesmo tempo, fazemos parte de algo gigantesco, algo tão grande que a nossa compreensão ainda está em construção. O que será que nos espera no futuro? O que descobriremos ao continuar enviando mensagens para o universo, seja em busca de respostas ou em busca de novos questionamentos? Por enquanto, podemos apenas esperar... e continuar enviando nossas palavras ao infinito.</p>
+        <p>Quando você aperta o botão e envia sua mensagem, uma parte do seu ser se une ao cosmos. O que o futuro nos reserva é incerto, mas uma coisa é certa: estamos todos conectados através da mesma curiosidade e desejo de entender o desconhecido. As estrelas brilham no céu, planetas giram ao redor de suas estrelas e o espaço continua a se expandir. E talvez, só talvez, algum dia, nossa mensagem encontre outro ser, outro pensamento, outra vida, que irá entender nossas palavras e responder. Até lá, cada mensagem enviada será um pequeno passo em nossa grande jornada cósmica.</p>
+    </div>
 
     <script>
-        // Função para mostrar a interação do botão
-        function enviarMensagem() {
-            let texto = document.querySelector('textarea').value;
-            if (texto.trim() === '') {
-                alert('Por favor, digite algo!');
-            } else {
-                alert('Mensagem enviada para o universo!');
-                // Limpar o campo de texto
-                document.querySelector('textarea').value = '';
-            }
+        const responses = [
+            "Mensagem enviada!",
+            "Seu pedido está a caminho do universo.",
+            "A mensagem foi transmitida com sucesso.",
+            "Comunicado enviado para os confins do cosmos.",
+            "Mensagem recebida. O universo responde em breve.",
+            "A mensagem foi transmitida para o infinito.",
+            "Sinal enviado, agora é só aguardar a resposta!",
+            "A comunicação com o além foi estabelecida!",
+            "Transmitindo para os confins do espaço sideral...",
+            "Mensagem registrada nos arquivos cósmicos."
+        ];
+
+        function sendMessage() {
+            const responseElement = document.getElementById('response');
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            responseElement.textContent = randomResponse;
         }
     </script>
-
 </body>
 </html>
