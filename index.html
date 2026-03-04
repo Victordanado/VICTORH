@@ -3,175 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversando com o Mundo</title>
+    <title>Olá, Mundo!</title>
     <style>
-        /* Resetando margens e padding */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Corpo da página */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #000;  /* Fundo preto para contraste */
+            background-color: #f8f9fa;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
-            color: white;
-            text-align: center;
-            overflow: hidden;
+            padding: 20px;
         }
 
-        /* Título */
         h1 {
-            font-size: 4rem;
-            color: #ff6347;
-            margin-bottom: 50px;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            font-weight: bold;
-            text-shadow: 3px 3px 10px rgba(255, 99, 71, 0.6);
-            animation: fadeInTitle 3s forwards;
+            color: #2e7d32;
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
-        /* Animação para o título */
-        @keyframes fadeInTitle {
-            0% { opacity: 0; transform: translateY(-50px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
         }
 
-        /* Caixa de Processo */
-        .processo {
-            width: 400px;
-            height: 400px;
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/0f/Earth%2C_South_America_and_Antarctica_-_NASA_Earth_Observatory.jpg');
-            background-size: cover;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
-            animation: rotate 8s linear infinite;
-            border: 5px solid #ff6347;
+        .container p {
+            font-size: 1.2em;
+            color: #555555;
         }
 
-        /* Animação de rotação da caixa (mundo girando) */
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Ícone de comunicação - Fala */
-        .icone-fala {
-            width: 100px;
-            height: 100px;
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a4/Comment_bubble_icon.svg');
-            background-size: cover;
-            background-position: center;
-            border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            animation: bounce 1s ease-in-out infinite;
-        }
-
-        /* Animação do ícone de fala */
-        @keyframes bounce {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
-        }
-
-        /* Texto sobre o processo */
-        .texto-processo {
-            position: absolute;
-            font-size: 1.5rem;
-            color: #ff6347;
-            font-weight: bold;
-            letter-spacing: 3px;
-            opacity: 0;
-            animation: fadeInProcess 3s forwards 2s;
-        }
-
-        /* Animação de fade-in para o texto */
-        @keyframes fadeInProcess {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Imagem de bandeiras */
-        .bandeiras {
-            position: absolute;
-            top: 70%;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            animation: slideBandeiras 5s ease-in-out infinite;
-        }
-
-        /* Animação para bandeiras deslizarem */
-        @keyframes slideBandeiras {
-            0% { transform: translateX(-50%); }
-            50% { transform: translateX(50%); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* Imagens das bandeiras */
-        .bandeira {
-            width: 50px;
-            height: 50px;
+        textarea {
+            width: 100%;
+            height: 150px;
+            font-size: 1.2em;
+            padding: 10px;
+            border: 2px solid #2e7d32;
             border-radius: 10px;
-            background-size: cover;
+            resize: none;
+            margin-top: 20px;
         }
 
-        /* Imagens das bandeiras */
-        .bandeira1 {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg');
+        button {
+            background-color: #2e7d32;
+            color: white;
+            font-size: 1.5em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
         }
 
-        .bandeira2 {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Brazil.svg');
+        button:hover {
+            background-color: #388e3c;
         }
-
-        .bandeira3 {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_Germany.svg');
-        }
-
-        .bandeira4 {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_Japan.svg/1920px-Flag_of_Japan.svg.png');
-        }
-
-        .bandeira5 {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Flag_of_China.svg/1920px-Flag_of_China.svg.png');
-        }
-
     </style>
 </head>
 <body>
-
-    <!-- Título -->
-    <h1>Conversando com o Mundo</h1>
-
-    <!-- Caixa de Processo (Mundo) -->
-    <div class="processo">
-        <!-- Ícone de Fala (Comentário) -->
-        <div class="icone-fala"></div>
-        <!-- Texto do processo -->
-        <div class="texto-processo">Conectando...</div>
+    <h1>Olá, Mundo!</h1>
+    <div class="container">
+        <p>Digite algo abaixo e clique no botão para enviar sua mensagem!</p>
+        <textarea placeholder="Escreva aqui..."></textarea>
+        <br>
+        <button onclick="alert('Mensagem enviada!')">Enviar Mensagem</button>
     </div>
-
-    <!-- Bandeiras dos países em movimento -->
-    <div class="bandeiras">
-        <div class="bandeira bandeira1"></div>
-        <div class="bandeira bandeira2"></div>
-        <div class="bandeira bandeira3"></div>
-        <div class="bandeira bandeira4"></div>
-        <div class="bandeira bandeira5"></div>
-    </div>
-
 </body>
 </html>
