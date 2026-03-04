@@ -3,49 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Dark Interface</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>IA Premium Interface</title>
+    
+    <style>
+        /* CSS INTEGRADO - O DESIGN */
+        :root {
+            --preto-profundo: #050505;
+            --neon-azul: #00f2ff;
+            --neon-roxo: #7c4dff;
+            --texto: #ffffff;
+            --vidro: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            background-color: var(--preto-profundo);
+            color: var(--texto);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            /* Luzes de fundo */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 242, 255, 0.07) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(124, 77, 255, 0.07) 0%, transparent 40%);
+        }
+
+        /* Container Principal com efeito de Vidro */
+        .app-container {
+            width: 90%;
+            max-width: 850px;
+            height: 80vh;
+            background: var(--vidro);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.4rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--neon-azul), var(--neon-roxo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Área de Mensagens */
+        #chat-window {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Estilo da Mensagem da IA */
+        .msg {
+            max-width: 80%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            animation: surgir 0.4s ease-out;
+        }
+
+        .ai-msg {
+            background: rgba(255, 255, 255, 0.07);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .user-msg {
+            background: linear-gradient(135deg, var(--neon-roxo), #5e35b1);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+            box-shadow: 0 4px 15px rgba(124, 77, 255, 0.3);
+        }
+
+        /* Área de Input */
+        .footer-input {
+            padding: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 15px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--neon-azul);
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+        }
+
+        button {
+            background: var(--neon-azul);
+            border: none;
+            padding: 0 25px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--neon-azul);
+        }
+
+        /* Animação */
+        @keyframes surgir {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scrollbar Personalizada */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    </style>
 </head>
 <body>
-    <div class="background-glow"></div>
-    
-    <main class="chat-container">
-        <header>
-            <h1>Nexus<span>AI</span></h1>
-            <p>O futuro da escrita inteligente</p>
-        </header>
 
-        <div class="chat-window" id="chatWindow">
-            <div class="message ai">
-                Olá! Como posso transformar suas ideias em realidade hoje?
+    <div class="app-container">
+        <div class="header">
+            <h1>Nexus Escritor IA</h1>
+        </div>
+
+        <div id="chat-window">
+            <div class="msg ai-msg">
+                Olá! Sou seu assistente de escrita. O que vamos criar hoje no cenário dark?
             </div>
         </div>
 
-        <div class="input-area">
-            <textarea id="userInput" placeholder="Digite sua ideia aqui..." rows="1"></textarea>
-            <button id="sendBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-            </button>
+        <div class="footer-input">
+            <input type="text" id="userInput" placeholder="Digite seu comando aqui...">
+            <button onclick="enviar()">Enviar</button>
         </div>
-    </main>
+    </div>
 
     <script>
-        // Simulação básica de interação
-        const btn = document.getElementById('sendBtn');
-        const input = document.getElementById('userInput');
-        const windowChat = document.getElementById('chatWindow');
+        // Lógica simples para simular a IA
+        function enviar() {
+            const input = document.getElementById('userInput');
+            const chat = document.getElementById('chat-window');
 
-        btn.onclick = () => {
-            if(input.value.trim() !== "") {
-                const msg = document.createElement('div');
-                msg.className = 'message user';
-                msg.innerText = input.value;
-                windowChat.appendChild(msg);
+            if (input.value.trim() !== "") {
+                // Mensagem do usuário
+                const userMsg = document.createElement('div');
+                userMsg.className = 'msg user-msg';
+                userMsg.textContent = input.value;
+                chat.appendChild(userMsg);
+
+                const textoUsuario = input.value;
                 input.value = "";
-                windowChat.scrollTop = windowChat.scrollHeight;
+
+                // Scroll para baixo
+                chat.scrollTop = chat.scrollHeight;
+
+                // Resposta da IA (Simulada)
+                setTimeout(() => {
+                    const aiMsg = document.createElement('div');
+                    aiMsg.className = 'msg ai-msg';
+                    aiMsg.textContent = "Estou processando sua solicitação sobre: '" + textoUsuario + "'. Como sou um design de exemplo, imagine aqui um texto incrível sendo gerado!";
+                    chat.appendChild(aiMsg);
+                    chat.scrollTop = chat.scrollHeight;
+                }, 800);
             }
         }
+
+        // Permitir enviar com ENTER
+        document.getElementById('userInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') enviar();
+        });
     </script>
 </body>
 </html>
