@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus AI | Premium Dark</title>
+    <title>Nexus IA | Dark Fantasy World</title>
     
     <style>
-        /* RESET GERAL PARA GARANTIR O FUNDO PRETO */
         * {
             margin: 0;
             padding: 0;
@@ -15,7 +14,10 @@
         }
 
         body {
-            background-color: #000000 !important; /* Força o preto */
+            /* Fundo com imagem de Dark Fantasy */
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), 
+                        url('https://images.unsplash.com/photo-1519074063912-ad2a602159d7?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -25,53 +27,87 @@
             position: relative;
         }
 
-        /* EFEITOS DE LUZ NO FUNDO */
-        .glow {
+        /* Efeitos de fumaça/névoa nas bordas */
+        .overlay-vignette {
             position: absolute;
-            width: 40vw;
-            height: 40vw;
-            background: radial-gradient(circle, rgba(0, 242, 255, 0.08) 0%, rgba(0,0,0,0) 70%);
-            top: -10%;
-            left: -10%;
-            z-index: 0;
-        }
-
-        .glow-2 {
-            position: absolute;
-            width: 40vw;
-            height: 40vw;
-            background: radial-gradient(circle, rgba(124, 77, 255, 0.08) 0%, rgba(0,0,0,0) 70%);
-            bottom: -10%;
-            right: -10%;
-            z-index: 0;
-        }
-
-        /* CONTAINER PRINCIPAL */
-        .glass-panel {
-            width: 90%;
-            max-width: 1000px;
-            height: 85vh;
-            background: rgba(15, 15, 15, 0.7); /* Preto translúcido */
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            display: flex;
-            flex-direction: column;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 40%, black 100%);
+            pointer-events: none;
             z-index: 1;
-            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        }
+
+        /* CONTAINER COM VIDRO MAIS AVANÇADO */
+        .glass-panel {
+            width: 95%;
+            max-width: 1100px;
+            height: 85vh;
+            background: rgba(10, 10, 10, 0.6); 
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: row; /* Dividido em duas colunas */
+            z-index: 2;
+            box-shadow: 0 0 60px rgba(0,0,0,0.9);
             overflow: hidden;
         }
 
-        /* TOPO */
+        /* BARRA LATERAL (NOVIDADE: MAIS COISAS NA TELA) */
+        .sidebar {
+            width: 250px;
+            background: rgba(0, 0, 0, 0.4);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            display: none; /* Escondido em telas pequenas */
+        }
+
+        @media (min-width: 768px) { .sidebar { display: flex; } }
+
+        .sidebar h2 {
+            font-size: 0.8rem;
+            color: #7c4dff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .world-item {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .world-item:hover {
+            border-color: #00f2ff;
+            background: rgba(0, 242, 255, 0.05);
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        .main-chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
         .header {
-            padding: 25px;
-            text-align: center;
+            padding: 20px;
+            text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .header h1 {
-            font-size: 1.2rem;
-            letter-spacing: 6px;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
             background: linear-gradient(to right, #00f2ff, #7c4dff);
             -webkit-background-clip: text;
@@ -79,10 +115,11 @@
             font-weight: 800;
         }
 
-        /* ÁREA DE CONVERSA */
+        .status { font-size: 0.7rem; color: #00ff88; text-transform: uppercase; }
+
         #chat-area {
             flex: 1;
-            padding: 30px;
+            padding: 25px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -90,11 +127,11 @@
         }
 
         .bubble {
-            padding: 16px 20px;
-            border-radius: 16px;
-            max-width: 80%;
-            font-size: 0.95rem;
-            line-height: 1.5;
+            padding: 16px;
+            border-radius: 12px;
+            max-width: 85%;
+            font-size: 0.9rem;
+            line-height: 1.6;
             animation: fadeIn 0.4s ease forwards;
         }
 
@@ -102,6 +139,7 @@
             background: rgba(255, 255, 255, 0.05);
             align-self: flex-start;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #7c4dff;
         }
 
         .user {
@@ -112,45 +150,39 @@
             box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
         }
 
-        /* BARRA DE DIGITAÇÃO */
+        /* INPUT BOX */
         .input-box {
-            padding: 25px;
-            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
             display: flex;
-            gap: 15px;
+            gap: 12px;
         }
 
         input {
             flex: 1;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 18px;
-            border-radius: 14px;
+            padding: 15px;
+            border-radius: 10px;
             color: white;
-            font-size: 1rem;
             outline: none;
-            transition: 0.3s;
-        }
-
-        input:focus {
-            border-color: #00f2ff;
-            background: rgba(255, 255, 255, 0.08);
         }
 
         button {
-            background: white;
-            color: black;
+            background: #7c4dff;
+            color: white;
             border: none;
-            padding: 0 30px;
-            border-radius: 14px;
+            padding: 0 25px;
+            border-radius: 10px;
             font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
         }
 
         button:hover {
-            transform: scale(1.05);
             background: #00f2ff;
+            color: black;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
         }
 
         @keyframes fadeIn {
@@ -158,30 +190,42 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* SCROLLBAR */
-        #chat-area::-webkit-scrollbar { width: 4px; }
-        #chat-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #333; }
     </style>
 </head>
 <body>
 
-    <div class="glow"></div>
-    <div class="glow-2"></div>
+    <div class="overlay-vignette"></div>
 
     <div class="glass-panel">
-        <div class="header">
-            <h1>Nexus IA Writing</h1>
-        </div>
+        <aside class="sidebar">
+            <h2>Grimórios Ativos</h2>
+            <div class="world-item">🏰 Crônicas do Castelo Negro</div>
+            <div class="world-item">🌋 Alquimia do Vulcão</div>
+            <div class="world-item">💀 Necromancia Proibida</div>
+            <div class="world-item">⚔️ Ordens de Cavalaria</div>
+            
+            <h2 style="margin-top: 30px;">Histórico</h2>
+            <div style="opacity: 0.5; font-size: 0.7rem;">Nenhuma alma encontrada...</div>
+        </aside>
 
-        <div id="chat-area">
-            <div class="bubble ai">
-                Sistema carregado. Estou pronto para criar com você. O que deseja escrever agora?
+        <div class="main-chat">
+            <div class="header">
+                <h1>Nexus Escritor IA</h1>
+                <div class="status">● Sistema Imersivo</div>
             </div>
-        </div>
 
-        <div class="input-box">
-            <input type="text" id="prompt" placeholder="Digite seu comando aqui...">
-            <button onclick="send()">ENVIAR</button>
+            <div id="chat-area">
+                <div class="bubble ai">
+                    O mundo das sombras aguarda suas palavras. Eu sou o Nexus, seu escriba nas trevas. O que vamos registrar hoje?
+                </div>
+            </div>
+
+            <div class="input-box">
+                <input type="text" id="prompt" placeholder="Escreva o destino deste mundo...">
+                <button onclick="send()">ENVIAR</button>
+            </div>
         </div>
     </div>
 
@@ -191,7 +235,6 @@
             const area = document.getElementById('chat-area');
 
             if (input.value.trim() !== "") {
-                // Mensagem do Usuário
                 const uMsg = document.createElement('div');
                 uMsg.className = 'bubble user';
                 uMsg.textContent = input.value;
@@ -200,20 +243,18 @@
                 const val = input.value;
                 input.value = "";
 
-                // Resposta Automática da IA
                 setTimeout(() => {
                     const aMsg = document.createElement('div');
                     aMsg.className = 'bubble ai';
-                    aMsg.textContent = "Analisei seu pedido: '" + val + "'. Gerando conteúdo otimizado...";
+                    aMsg.innerHTML = "📜 <b>Escriba:</b> Suas ordens sobre <i>" + val + "</i> foram ouvidas. A névoa se dissipa e a história começa a ser escrita...";
                     area.appendChild(aMsg);
                     area.scrollTop = area.scrollHeight;
-                }, 600);
+                }, 800);
 
                 area.scrollTop = area.scrollHeight;
             }
         }
 
-        // Detectar Tecla Enter
         document.getElementById('prompt').onkeypress = function(e) {
             if (e.keyCode == 13) send();
         }
