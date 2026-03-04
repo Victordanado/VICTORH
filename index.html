@@ -1,189 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mundo Chat</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
-<style>
-/* RESET */
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olá Mundo</title>
+    <style>
+        /* Resetando margens e padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* BODY */
-body {
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(to bottom,#a8edea,#fed6e3);
-  color:#111;
-}
+        /* Corpo da página */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
 
-/* CONTAINER */
-.container {
-  width:450px;
-  height:650px;
-  display:flex;
-  flex-direction:column;
-  border-radius:20px;
-  background: rgba(255,255,255,0.9);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-  overflow:hidden;
-}
+        /* Estilo do título */
+        h1 {
+            font-size: 3rem;
+            color: #ff6347; /* Tom de vermelho chamativo */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
 
-/* HEADER */
-.header {
-  padding:20px;
-  font-weight:700;
-  font-size:20px;
-  text-align:center;
-  border-bottom:1px solid #e0e0e0;
-  color:#00796b;
-}
+        /* Estilo da imagem */
+        .imagem {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #ff6347;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
 
-/* CHAT BOX */
-.chat-box {
-  flex:1;
-  padding:20px;
-  overflow-y:auto;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  background:#fff;
-}
-
-/* SCROLL */
-.chat-box::-webkit-scrollbar { width:6px; }
-.chat-box::-webkit-scrollbar-thumb { background:#00796b; border-radius:10px; }
-
-/* MENSAGENS */
-.message {
-  padding:12px 18px;
-  border-radius:15px;
-  max-width:75%;
-  font-size:14px;
-  animation:fadeIn 0.2s ease;
-}
-
-.user { align-self:flex-end; background:#00796b; color:#fff; }
-.world { align-self:flex-start; background:#e0f2f1; color:#00796b; }
-
-@keyframes fadeIn { from{opacity:0; transform:translateY(5px);} to{opacity:1; transform:translateY(0);} }
-
-/* INPUT AREA */
-.input-area {
-  display:flex;
-  border-top:1px solid #e0e0e0;
-  padding:15px;
-  background:#fafafa;
-}
-
-input {
-  flex:1;
-  padding:12px 15px;
-  border-radius:15px;
-  border:1px solid #ccc;
-  outline:none;
-  font-size:14px;
-  transition:0.2s;
-}
-
-input:focus { border-color:#00796b; box-shadow:0 0 5px rgba(0,121,107,0.3); }
-
-button {
-  margin-left:10px;
-  padding:12px 20px;
-  border:none;
-  border-radius:15px;
-  background:#00796b;
-  color:#fff;
-  cursor:pointer;
-  font-weight:500;
-  transition:0.2s;
-}
-
-button:hover { background:#004d40; }
-</style>
+        /* Efeito ao passar o mouse na imagem */
+        .imagem:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 <body>
-
-<div class="container">
-  <div class="header">🌍 Mundo Chat</div>
-  <div class="chat-box" id="chat"></div>
-  <div class="input-area">
-    <input type="text" id="input" placeholder="Fale com o mundo...">
-    <button onclick="send()">Enviar</button>
-  </div>
-</div>
-
-<script>
-const chat = document.getElementById("chat");
-const input = document.getElementById("input");
-
-let memoria = JSON.parse(localStorage.getItem("memoriaMundo")) || [];
-
-function salvarMemoria() {
-  localStorage.setItem("memoriaMundo", JSON.stringify(memoria));
-}
-
-function addMessage(text,type){
-  const msg=document.createElement("div");
-  msg.classList.add("message",type);
-  msg.textContent=text;
-  chat.appendChild(msg);
-  chat.scrollTop=chat.scrollHeight;
-}
-
-function ai(texto){
-  texto = texto.toLowerCase();
-  
-  // SAUDAÇÕES
-  if(texto.includes("oi")||texto.includes("olá")) return "🌍 Olá! Que bom te ver por aqui!";
-  if(texto.includes("bom dia")) return "☀️ Bom dia! Que seu dia seja incrível!";
-  if(texto.includes("boa tarde")) return "🌤 Boa tarde! Aproveite cada momento!";
-  if(texto.includes("boa noite")) return "🌙 Boa noite! Durma bem e sonhe com o mundo!";
-  
-  // EMOÇÕES
-  if(texto.includes("triste")) return "😌 A tristeza faz parte, mas dias melhores virão.";
-  if(texto.includes("feliz")) return "😊 Que bom que está feliz! Espalhe alegria!";
-  if(texto.includes("amor")) return "❤️ O amor mantém o mundo girando!";
-  
-  // CONHECIMENTO
-  if(texto.includes("planeta")) return "🌎 O nosso planeta é incrível e cheio de vida!";
-  if(texto.includes("natureza")) return "🍃 Preserve a natureza, ela nos dá vida!";
-  if(texto.includes("clima")) return "☁️ O clima muda, mas o planeta continua lindo!";
-  
-  // GENÉRICOS
-  if(texto.includes("quem é você")) return "🌍 Eu sou o Mundo, sempre observando e aprendendo com você!";
-  if(texto.includes("tempo")) return "⏳ O tempo passa rápido, aproveite cada momento!";
-  
-  return "🌱 Interessante... me conte mais sobre o mundo!";
-}
-
-function send(){
-  const texto = input.value.trim();
-  if(!texto) return;
-  addMessage(texto,"user");
-  memoria.push({user:texto});
-  input.value="";
-  setTimeout(()=>{
-    const resposta = ai(texto);
-    addMessage(resposta,"world");
-    memoria.push({world:resposta});
-    salvarMemoria();
-  },400);
-}
-
-input.addEventListener("keypress",e=>{
-  if(e.key==="Enter") send();
-});
-
-// carregar histórico
-memoria.forEach(item=>{
-  if(item.user)addMessage(item.user,"user");
-  if(item.world)addMessage(item.world,"world");
-});
-</script>
-
+    <h1>Olá Mundo!</h1>
+    <img src="https://via.placeholder.com/200" alt="Imagem Chamativa" class="imagem">
 </body>
 </html>
