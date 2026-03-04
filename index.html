@@ -24,6 +24,9 @@
             overflow: hidden;
             padding: 20px;
             position: relative;
+            background-image: url('https://via.placeholder.com/1500x1000/000000/FFFFFF?text=Background+Space'); /* Imagem de fundo (cósmica ou espacial) */
+            background-size: cover;
+            background-position: center;
         }
 
         /* Animação para o título "Olá, Mundo!" */
@@ -95,14 +98,16 @@
             background-color: #388e3c;
         }
 
-        /* Planeta flutuante */
+        /* Planeta flutuante (usando imagem) */
         .planet {
             position: absolute;
             top: -200px;
             right: 10%;
             width: 150px;
             height: 150px;
-            background: radial-gradient(circle, #4CAF50, #2e7d32);
+            background-image: url('https://via.placeholder.com/150'); /* Imagem do planeta */
+            background-size: cover;
+            background-position: center;
             border-radius: 50%;
             box-shadow: 0 4px 30px rgba(0, 255, 0, 0.5);
             animation: orbit 10s linear infinite;
